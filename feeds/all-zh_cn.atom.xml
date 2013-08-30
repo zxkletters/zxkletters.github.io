@@ -1,5 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>i care</title><link href="http://notcare.cn/" rel="alternate"></link><link href="http://notcare.cn/feeds/all-zh_cn.atom.xml" rel="self"></link><id>http://notcare.cn/</id><updated>2013-08-27T10:50:00+08:00</updated><entry><title>从USB安装ubuntu</title><link href="http://notcare.cn/install_ubuntu_from_usb_stick.html" rel="alternate"></link><updated>2013-08-27T10:50:00+08:00</updated><author><name>zxkletters</name></author><id>tag:notcare.cn,2013-08-27:install_ubuntu_from_usb_stick.html</id><summary type="html">&lt;p&gt;今天通过usb安装ubuntu系统时遇到的小问题，记录下。&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>i care</title><link href="http://notcare.cn/" rel="alternate"></link><link href="http://notcare.cn/feeds/all-zh_cn.atom.xml" rel="self"></link><id>http://notcare.cn/</id><updated>2013-08-29T11:07:00+08:00</updated><entry><title>通过命令行快速浏览你的文件系统</title><link href="http://notcare.cn/quickly-navigate-your-filesystem.html" rel="alternate"></link><updated>2013-08-29T11:07:00+08:00</updated><author><name>zxkletters</name></author><id>tag:notcare.cn,2013-08-29:quickly-navigate-your-filesystem.html</id><summary type="html">&lt;p&gt;原文:&lt;a href="http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html"&gt;Quickly navigate your filesystem from the command-line&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;复制下边的代码到~/.bashrc文件里:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kr"&gt;export&lt;/span&gt; &lt;span class="nx"&gt;MARKPATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nx"&gt;$HOME&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;marks&lt;/span&gt;  
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;jump&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; 
+    &lt;span class="nx"&gt;cd&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;P&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;$MARKPATH/$1&amp;quot;&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="err"&gt;/dev/null || echo &amp;quot;No such mark: $1&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;mark&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; 
+    &lt;span class="nx"&gt;mkdir&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;p&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;$MARKPATH&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nx"&gt;ln&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;s&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;$(pwd)&amp;quot;&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;$MARKPATH/$1&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;unmark&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; 
+    &lt;span class="nx"&gt;rm&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;$MARKPATH/$1&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;marks&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;ls&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;l&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;$MARKPATH&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="nx"&gt;sed&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;s/  / /g&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="nx"&gt;cut&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;d&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39; &amp;#39;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;f9&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="nx"&gt;sed&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;s/ -/\t-/g&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="nx"&gt;echo&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="nx"&gt;_completemarks&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="nx"&gt;local&lt;/span&gt; &lt;span class="nx"&gt;curw&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;COMP_WORDS&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;COMP_CWORD&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="nx"&gt;local&lt;/span&gt; &lt;span class="nx"&gt;wordlist&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;find&lt;/span&gt; &lt;span class="nx"&gt;$MARKPATH&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;type&lt;/span&gt; &lt;span class="nx"&gt;l&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;printf&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;%f\n&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="nx"&gt;COMPREPLY&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;compgen&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;W&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;${wordlist&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="p"&gt;@&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="s1"&gt;}&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;$curw&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="nx"&gt;complete&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;F&lt;/span&gt; &lt;span class="nx"&gt;_completemarks&lt;/span&gt; &lt;span class="nx"&gt;jump&lt;/span&gt; &lt;span class="nx"&gt;unmark&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;好了，可以试下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;mydocs&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;进入~/test/mydocs目录,执行&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;mark&lt;/span&gt; &lt;span class="n"&gt;docs&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;然后回到用户目录:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;cd&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;执行下边的命令，看下发生了什么&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;jump&lt;/span&gt; &lt;span class="n"&gt;docs&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>从USB安装ubuntu</title><link href="http://notcare.cn/install_ubuntu_from_usb_stick.html" rel="alternate"></link><updated>2013-08-27T10:50:00+08:00</updated><author><name>zxkletters</name></author><id>tag:notcare.cn,2013-08-27:install_ubuntu_from_usb_stick.html</id><summary type="html">&lt;p&gt;今天通过usb安装ubuntu系统时遇到的小问题，记录下。&lt;/p&gt;
 &lt;p&gt;按照&lt;a href="http://www.ubuntu.com/download/desktop/create-a-usb-stick-on-windows" title="create usb stick"&gt;官网&lt;/a&gt;的文档
 制做好usb stick(通过&lt;a href="http://www.pendrivelinux.com/universal-usb-installer-easy-as-1-2-3/"&gt;Universal-USB-Installer-1.9.3.9.exe&lt;/a&gt;
 软件，将ubuntu iso文件flush到usb)，将usb插入电脑并在bios里设置通过usb启动后，电脑一直处于黑屏状态。
