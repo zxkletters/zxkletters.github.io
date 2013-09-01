@@ -28,8 +28,77 @@
 
                             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="http://notcare.cn/install_ubuntu_from_usb_stick.html">从USB安装ubuntu</a></h1> 
+                    <h1 class="entry-title"><a href="http://notcare.cn/quickly-navigate-your-filesystem.html">通过命令行快速浏览你的文件系统</a></h1> 
                     <footer class="post-info">
+        <abbr class="published" title="2013-08-29T11:07:00">
+                四 29 八月 2013
+        </abbr>
+
+                <address class="vcard author">
+                By <a class="url fn" href="http://notcare.cn/author/zxkletters.html">zxkletters</a>
+        </address>
+        <p>In <a href="http://notcare.cn/category/tech.html">tech</a>. </p>
+
+</footer><!-- /.post-info --><p>原文:<a href="http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html">Quickly navigate your filesystem from the command-line</a></p>
+<p>复制下边的代码到~/.bashrc文件里:</p>
+<div class="highlight"><pre><span class="kr">export</span> <span class="nx">MARKPATH</span><span class="o">=</span><span class="nx">$HOME</span><span class="o">/</span><span class="p">.</span><span class="nx">marks</span>  
+<span class="kd">function</span> <span class="nx">jump</span> <span class="p">{</span> 
+    <span class="nx">cd</span> <span class="o">-</span><span class="nx">P</span> <span class="s2">&quot;$MARKPATH/$1&quot;</span> <span class="mi">2</span><span class="o">&gt;</span><span class="err">/dev/null || echo &quot;No such mark: $1&quot;</span>
+<span class="p">}</span>
+<span class="kd">function</span> <span class="nx">mark</span> <span class="p">{</span> 
+    <span class="nx">mkdir</span> <span class="o">-</span><span class="nx">p</span> <span class="s2">&quot;$MARKPATH&quot;</span><span class="p">;</span> <span class="nx">ln</span> <span class="o">-</span><span class="nx">s</span> <span class="s2">&quot;$(pwd)&quot;</span> <span class="s2">&quot;$MARKPATH/$1&quot;</span>
+<span class="p">}</span>
+<span class="kd">function</span> <span class="nx">unmark</span> <span class="p">{</span> 
+    <span class="nx">rm</span> <span class="o">-</span><span class="nx">i</span> <span class="s2">&quot;$MARKPATH/$1&quot;</span>
+<span class="p">}</span>
+<span class="kd">function</span> <span class="nx">marks</span> <span class="p">{</span>
+    <span class="nx">ls</span> <span class="o">-</span><span class="nx">l</span> <span class="s2">&quot;$MARKPATH&quot;</span> <span class="o">|</span> <span class="nx">sed</span> <span class="s1">&#39;s/  / /g&#39;</span> <span class="o">|</span> <span class="nx">cut</span> <span class="o">-</span><span class="nx">d</span><span class="s1">&#39; &#39;</span> <span class="o">-</span><span class="nx">f9</span><span class="o">-</span> <span class="o">|</span> <span class="nx">sed</span> <span class="s1">&#39;s/ -/\t-/g&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">echo</span>
+<span class="p">}</span>
+<span class="nx">_completemarks</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">local</span> <span class="nx">curw</span><span class="o">=</span><span class="nx">$</span><span class="p">{</span><span class="nx">COMP_WORDS</span><span class="cp">[</span><span class="nx">COMP_CWORD</span><span class="cp">]</span><span class="p">}</span>
+  <span class="nx">local</span> <span class="nx">wordlist</span><span class="o">=</span><span class="nx">$</span><span class="p">(</span><span class="nx">find</span> <span class="nx">$MARKPATH</span> <span class="o">-</span><span class="nx">type</span> <span class="nx">l</span> <span class="o">-</span><span class="nx">printf</span> <span class="s2">&quot;%f\n&quot;</span><span class="p">)</span>
+  <span class="nx">COMPREPLY</span><span class="o">=</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nx">compgen</span> <span class="o">-</span><span class="nx">W</span> <span class="s1">&#39;${wordlist</span><span class="cp">[</span><span class="p">@</span><span class="cp">]</span><span class="s1">}&#39;</span> <span class="o">--</span> <span class="s2">&quot;$curw&quot;</span><span class="p">))</span>
+  <span class="k">return</span> <span class="mi">0</span>
+<span class="p">}</span>
+
+<span class="nx">complete</span> <span class="o">-</span><span class="nx">F</span> <span class="nx">_completemarks</span> <span class="nx">jump</span> <span class="nx">unmark</span>
+</pre></div>
+
+
+<p>好了，可以试下：</p>
+<div class="highlight"><pre><span class="err">$</span><span class="n">cd</span> <span class="o">~/</span><span class="n">test</span><span class="o">/</span><span class="n">mydocs</span>
+</pre></div>
+
+
+<p>进入~/test/mydocs目录,执行</p>
+<div class="highlight"><pre><span class="err">$</span><span class="n">mark</span> <span class="n">docs</span>
+</pre></div>
+
+
+<p>然后回到用户目录:</p>
+<div class="highlight"><pre><span class="err">$</span><span class="n">cd</span>
+</pre></div>
+
+
+<p>执行下边的命令，看下发生了什么</p>
+<div class="highlight"><pre><span class="err">$</span><span class="n">jump</span> <span class="n">docs</span>
+</pre></div>                </article>
+                            </aside><!-- /#featured -->
+                            <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+                                                
+
+                 
+                        <li><article class="hentry">    
+                <header>
+                    <h1><a href="http://notcare.cn/install_ubuntu_from_usb_stick.html" rel="bookmark"
+                           title="Permalink to 从USB安装ubuntu">从USB安装ubuntu</a></h1>
+                </header>
+                
+                <div class="entry-content">
+                <footer class="post-info">
         <abbr class="published" title="2013-08-27T10:50:00">
                 二 27 八月 2013
         </abbr>
@@ -39,19 +108,17 @@
         </address>
         <p>In <a href="http://notcare.cn/category/tech.html">tech</a>. </p>
 
-</footer><!-- /.post-info --><p>今天通过usb安装ubuntu系统时遇到的小问题，记录下。</p>
+</footer><!-- /.post-info -->                <p>今天通过usb安装ubuntu系统时遇到的小问题，记录下。</p>
 <p>按照<a href="http://www.ubuntu.com/download/desktop/create-a-usb-stick-on-windows" title="create usb stick">官网</a>的文档
 制做好usb stick(通过<a href="http://www.pendrivelinux.com/universal-usb-installer-easy-as-1-2-3/">Universal-USB-Installer-1.9.3.9.exe</a>
 软件，将ubuntu iso文件flush到usb)，将usb插入电脑并在bios里设置通过usb启动后，电脑一直处于黑屏状态。
 后来在<a href="http://askubuntu.com/search?page=2&amp;tab=relevance&amp;q=boot%20from%20usb%20not%20work">ubuntu社区</a>查找解决办法
 发现了一个帖子<a href="http://askubuntu.com/questions/313910/installing-ubuntu-with-usb-stick/313914#313914">Installing Ubuntu with USB stick</a>,
-提到这个软件<a href="http://rufus.akeo.ie/">Rufu</a>可以解决. 最后按照该贴用Rufu制作的usb stick成功安装。</p>                </article>
-                            </aside><!-- /#featured -->
-                            <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
-                                                
+提到这个软件<a href="http://rufus.akeo.ie/">Rufu</a>可以解决. 最后按照该贴用Rufu制作的usb stick成功安装。</p>
+                <a class="readmore" href="http://notcare.cn/install_ubuntu_from_usb_stick.html">read more</a>
+                                </div><!-- /.entry-content -->
+            </article></li>
+                            
 
                  
                         <li><article class="hentry">    
@@ -117,5 +184,21 @@
                 <p><center><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cdiv id='cnzz_stat_icon_1000037863'%3E%3C/div%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1000037863%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script></center></p>
         </footer><!-- /#contentinfo -->
 
+<!-- Duoshuo Comment BEGIN -->
+<!--
+  <div class="ds-thread"></div>
+  <script type="text/javascript">
+      var duoshuoQuery = {short_name:"notcare"};
+      (function() {
+              var ds = document.createElement('script');
+              ds.type = 'text/javascript';ds.async = true;
+              ds.src = 'http://static.duoshuo.com/embed.js';
+              ds.charset = 'UTF-8';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+          }
+      )();
+    </script>
+    -->
+<!-- Duoshuo Comment END -->
 </body>
 </html>

@@ -84,6 +84,43 @@
                  
                         <li><article class="hentry">    
                 <header>
+                    <h1><a href="http://notcare.cn/quickly-navigate-your-filesystem.html" rel="bookmark"
+                           title="Permalink to 通过命令行快速浏览你的文件系统">通过命令行快速浏览你的文件系统</a></h1>
+                </header>
+                
+                <div class="entry-content">
+                <footer class="post-info">
+        <abbr class="published" title="2013-08-29T11:07:00">
+                四 29 八月 2013
+        </abbr>
+
+                <address class="vcard author">
+                By <a class="url fn" href="http://notcare.cn/author/zxkletters.html">zxkletters</a>
+        </address>
+        <p>In <a href="http://notcare.cn/category/tech.html">tech</a>. </p>
+
+</footer><!-- /.post-info -->                <p>原文:<a href="http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html">Quickly navigate your filesystem from the command-line</a></p>
+<p>复制下边的代码到~/.bashrc文件里:</p>
+<div class="highlight"><pre><span class="kr">export</span> <span class="nx">MARKPATH</span><span class="o">=</span><span class="nx">$HOME</span><span class="o">/</span><span class="p">.</span><span class="nx">marks</span>  
+<span class="kd">function</span> <span class="nx">jump</span> <span class="p">{</span> 
+    <span class="nx">cd</span> <span class="o">-</span><span class="nx">P</span> <span class="s2">&quot;$MARKPATH/$1&quot;</span> <span class="mi">2</span><span class="o">&gt;</span><span class="err">/dev/null || echo &quot;No such mark: $1&quot;</span>
+<span class="p">}</span>
+<span class="kd">function</span> <span class="nx">mark</span> <span class="p">{</span> 
+    <span class="nx">mkdir</span> <span class="o">-</span><span class="nx">p</span> <span class="s2">&quot;$MARKPATH&quot;</span><span class="p">;</span> <span class="nx">ln</span> <span class="o">-</span><span class="nx">s</span> <span class="s2">&quot;$(pwd)&quot;</span> <span class="s2">&quot;$MARKPATH/$1&quot;</span>
+<span class="p">}</span>
+<span class="kd">function</span> <span class="nx">unmark</span> <span class="p">{</span> 
+    <span class="nx">rm</span> <span class="o">-</span><span class="nx">i</span> <span class="s2">&quot;$MARKPATH/$1&quot;</span>
+<span class="p">}</span>
+<span class="kd">function</span> <span class="nx">marks</span> <span class="p">{</span>
+    <span class="nx">ls</span> <span class="o">-</span><span class="nx">l</span> <span class="s2">&quot;$MARKPATH&quot;</span> <span class="o">|</span> <span class="nx">sed ...</span></pre></div>
+                <a class="readmore" href="http://notcare.cn/quickly-navigate-your-filesystem.html">read more</a>
+                                </div><!-- /.entry-content -->
+            </article></li>
+                            
+
+                 
+                        <li><article class="hentry">    
+                <header>
                     <h1><a href="http://notcare.cn/who_care.html" rel="bookmark"
                            title="Permalink to who care?">who care?</a></h1>
                 </header>
@@ -118,5 +155,21 @@
                 <p><center><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cdiv id='cnzz_stat_icon_1000037863'%3E%3C/div%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1000037863%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script></center></p>
         </footer><!-- /#contentinfo -->
 
+<!-- Duoshuo Comment BEGIN -->
+<!--
+  <div class="ds-thread"></div>
+  <script type="text/javascript">
+      var duoshuoQuery = {short_name:"notcare"};
+      (function() {
+              var ds = document.createElement('script');
+              ds.type = 'text/javascript';ds.async = true;
+              ds.src = 'http://static.duoshuo.com/embed.js';
+              ds.charset = 'UTF-8';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+          }
+      )();
+    </script>
+    -->
+<!-- Duoshuo Comment END -->
 </body>
 </html>
